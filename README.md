@@ -2,12 +2,12 @@
 # thesis_template
 
 
-PhD thesis layout for LaTeX as used for my phd at the Delft University of Technology.
+LaTeX layout used for my [doctoral thesis](https://doi.org/10.4233/uuid:517f8597-9c24-4d01-83ed-0f430353e905) at the Delft University of Technology.
 The thesis layout is demonstrated for both the booklet and propositions.
 
 ## thesis.sty
 
-LaTeX2e book style for the Ph.D. thesis layout
+LaTeX2e book style for the PhD thesis layout
 
 ### Usage
 
