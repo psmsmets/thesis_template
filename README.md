@@ -3,7 +3,8 @@
 
 
 LaTeX layout used for my [doctoral thesis](https://doi.org/10.4233/uuid:517f8597-9c24-4d01-83ed-0f430353e905) at the Delft University of Technology.
-The thesis layout is demonstrated for both the booklet and propositions.
+
+The thesis layout is demonstrated for both the book and the propositions.
 
 ## thesis.sty
 
@@ -33,6 +34,10 @@ All options:
 	thumbs            enable chapter thumbs
 	debug             enable geometry showframe and showcrop
 
-## Thesis project (thesis.tex)
+## Doctoral thesis (thesis.tex)
+
+Core LaTeX file the includes all chapters. Each chapter has its own folder named `ch-...` containing the text `main.tex` and a folder `figs` containing all figures. Long chapters can be split similarly for sections. 
 
 ## Propositions (propositions.tex)
+
+The layout of the doctoral thesis (thesis.sty) is used for the propositions. An example is given in both English and Dutch, with a reference to a specific chapter of the doctoral thesis.
