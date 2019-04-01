@@ -6,5 +6,7 @@
 *.bbl
 *.aux
 *.dvi
+*.synctex.gz
+*.toc
 ###< ignore specific filetypes ###
 
