@@ -1,0 +1,201 @@
+\begin{titlepage}
+
+\begin{center}
+
+%% Extra whitespace at the top.
+\vspace*{2\bigskipamount}
+
+%% Print the title.
+{\makeatletter
+\bfseries\LARGE\sffamily{\@title}
+\makeatother}
+
+%% Print the optional subtitle.
+{\makeatletter
+\ifx\@subtitle\undefined\else
+    \bigskip
+    \Large\@subtitle
+\fi
+\makeatother}
+
+\end{center}
+
+\pagestyle{empty}
+\cleardoublepage
+
+\begin{center}
+
+%% The following lines repeat the previous page exactly.
+
+\vspace*{2\bigskipamount}
+
+%% Print the title.
+{\makeatletter
+\bfseries\LARGE\sffamily{\@title}
+\makeatother}
+
+%% Print the optional subtitle.
+{\makeatletter
+\ifx\@subtitle\undefined\else
+    \bigskip
+    \Large\@subtitle
+\fi
+\makeatother}
+
+%% Uncomment the following lines to insert a vertically centered picture into
+%% the title page.
+%\vfill
+%\includegraphics{title}
+\vfill
+
+%% Apart from the names and dates, the following text is dictated by the
+%% promotieregelement.
+
+{\large\bfseries Dissertation}
+
+\bigskip
+\bigskip
+
+for the purpose of obtaining the degree of doctor
+
+at Delft University of Technology,
+
+by the authority of the Rector Magnificus, prof.\,dr.\,ir.~T.H.J.J.~van~der~Hagen,
+
+chair of the Board for Doctorates,
+
+to be defended publicly on
+
+@dayname, @day @Month @year at @time o'clock
+
+\bigskip
+
+by
+
+\bigskip
+
+%% Print the full name of the author.
+\makeatletter
+{\large \@firstname~\@middlename~{\MakeUppercase \@lastname}}
+\makeatother
+
+\medskip
+
+@highest\_degree, @university\_name, @university\_location
+
+born in @location, @country
+
+\vspace*{2\bigskipamount}
+
+\end{center}
+
+\clearpage
+\thispagestyle{empty}
+
+%% The following line is dictated by the promotieregelement.
+\noindent This dissertation has been approved by the promotor.
+
+%%% List the promotors (supervisors).
+%\smallskip\noindent
+%\begin{tabular}{l}
+%promotor: Prof.\,dr.\ J.\ Doe
+%\end{tabular}
+
+%% List the (optional) copromotor.
+%\medskip
+%\noindent Copromotor: Prof.\ dr.\ J.\ Doe
+
+\bigskip
+\noindent Composition of the doctoral committee:
+
+%% List the committee members, starting with the Rector Magnificus and the
+%% promotor(s) and ending with the reserve members.
+\smallskip\noindent
+\begin{tabular}{p{5cm}l}
+    Rector Magnificus & chairman \\
+    Prof.\,dr.\  J.\,J.\ Doe & Delft University of Technology, promotor\\
+\end{tabular}
+
+\bigskip
+\noindent Independent members:
+
+\smallskip\noindent
+\begin{tabular}{p{5cm}l}
+    Prof.\,dr.\,ir.\ C.\,P.\,A.\ Wapenaar & Delft University of Technology \\
+    Prof.\,dr.\ P.\,J.\ Espy & Norwegian University of Science and Technology \\
+    dr.\ A.\,J.\ Charlton-Perez & University of Reading, United Kingdom \\
+    ...
+\end{tabular}
+
+%% Include the following disclaimer for committee members who have contributed
+%% to this dissertation. Its formulation is again dictated by the
+%% promotieregelement.
+% \medskip
+% \noindent Prof.\ dr.\ ir.\ J.\ Doe heeft als begeleider in belangrijke mate aan de totstandkoming van het proefschrift bijgedragen.
+
+%% Here you can include the logos of any institute that contributed financially
+%% to this dissertation.
+\vfill
+%
+\noindent
+% first column
+\begin{minipage}[b]{0.5\textwidth}
+	\begin{center}%
+		% trim=left bottom right top
+		\includegraphics[height=12mm,clip=true,trim=0 9.8mm 0 3.5mm]{title/logos/tudelft_zw}%
+	\end{center}%
+	\vspace{-0.95mm}
+\end{minipage}
+%second column
+\begin{minipage}[b]{0.5\textwidth}
+	\begin{center}%
+		\includegraphics[height=20mm,clip=true,trim=40mm 7mm 20mm 0]{title/logos/knmi_zw}%
+	\end{center}%
+\end{minipage}
+%%third column
+%\begin{minipage}[b]{0.3\textwidth}
+%	\hfill
+%	\includegraphics[height=12mm,clip=true,trim=0 0 5mm 0]{title/logos/arise_zw}%
+%	\vspace{-.9mm}
+%\end{minipage}
+%
+\vfill
+
+\noindent \textit{Keywords:} infrasound ...
+
+\bigskip
+\noindent \textit{Cover illustration:} ....
+
+\bigskip
+\bigskip
+
+\noindent ISBN 000-00-0000-000-0 : request your free isbn at the library \url{https://www.tudelft.nl/en/library/current-topics/libraryfor-researchers/library-for-researchers/publishing-outreach/research-identity/request-an-isbn-or-issn/}
+
+\bigskip
+
+\noindent Copyright \textcopyright\ 2018 by E.~A.~Poe.
+
+\medskip
+\noindent All rights reserved. No part of the material protected by this copyright may be reproduced, or utilised in any other form or by any means, electronic or mechanical, including photocopying, recording or by any other information storage and retrieval system, without the prior permission of the author.
+
+\bigskip
+\noindent
+% first column
+\begin{minipage}[c]{0.75\textwidth}
+
+\noindent Typesetting system: \LaTeX.
+
+\noindent Printed in @publisher\_country by @publisher\_name, @publisher\_location.
+
+\medskip
+\noindent An electronic version of this dissertation is available at \\
+\url{http://repository.tudelft.nl/}.
+
+\end{minipage}
+%second column
+\begin{minipage}[c]{0.25\textwidth}
+\hfill \includegraphics[height=12mm]{title/logos/fsc}
+\end{minipage}
+
+
+\end{titlepage}

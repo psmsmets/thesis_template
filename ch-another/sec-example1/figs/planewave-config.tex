@@ -1,0 +1,150 @@
+
+\newcommand{\MarkRightAngle}[4][.25cm]% #1=size (optional), #2-#4 three points: \angle #2#3#4
+{\coordinate (tempa) at ($(#3)!#1!(#2)$);
+ \coordinate (tempb) at ($(#3)!#1!(#4)$);
+ \coordinate (tempc) at ($(tempa)!0.5!(tempb)$);%midpoint
+ \draw (tempa) -- ($(#3)!2!(tempc)$) -- (tempb);
+}
+
+% plane
+
+\pgfmathsetmacro{\azi}{60}
+\pgfmathsetmacro{\elev}{50}
+
+\pgfmathsetmacro{\offset}{3.3}
+\pgfmathsetmacro{\width}{3.5}
+\pgfmathsetmacro{\height}{6.5}
+
+
+\pgfmathsetmacro{\az}{180-\azi}
+\pgfmathsetmacro{\el}{90-\elev}
+
+
+\pgfmathsetmacro{\Bx}{\offset*cos(\azi+180)}
+\pgfmathsetmacro{\By}{\offset*sin(\azi+180)}
+\pgfmathsetmacro{\Bz}{0}
+
+\pgfmathsetmacro{\Ex}{\offset*cos(\azi)}
+\pgfmathsetmacro{\Ey}{\offset*sin(\azi)}
+\pgfmathsetmacro{\Ez}{0}
+
+\pgfmathsetmacro{\Zz}{\offset*tan(\elev)}
+
+ 
+\pgfmathsetmacro{\BLx}{\Bx + \width * sin \az}
+\pgfmathsetmacro{\BLy}{\By + \width * cos \az}
+\pgfmathsetmacro{\BLz}{\Bz}
+
+\pgfmathsetmacro{\BRx}{\Bx - \width * sin \az}
+\pgfmathsetmacro{\BRy}{\By - \width * cos \az}
+\pgfmathsetmacro{\BRz}{\Bz}
+
+\pgfmathsetmacro{\Tx}{\Bx+\height*sin(\el)*cos(\azi)}
+\pgfmathsetmacro{\Ty}{\By+\height*sin(\el)*sin(\azi)}
+\pgfmathsetmacro{\Tz}{\Bz+\height*cos(\el)}
+ 
+\pgfmathsetmacro{\TLx}{\Tx + \width * sin \az}
+\pgfmathsetmacro{\TLy}{\Ty + \width * cos \az}
+\pgfmathsetmacro{\TLz}{\Tz}
+
+\pgfmathsetmacro{\TRx}{\Tx - \width * sin \az}
+\pgfmathsetmacro{\TRy}{\Ty - \width * cos \az}
+\pgfmathsetmacro{\TRz}{\Tz}
+
+
+\pgfmathsetmacro{\Lx}{(\BLx+\TLx)/2}
+\pgfmathsetmacro{\Ly}{(\BLy+\TLy)/2}
+\pgfmathsetmacro{\Lz}{(\BLz+\TLz)/2}
+  
+\pgfmathsetmacro{\Rx}{(\BRx+\TRx)/2}
+\pgfmathsetmacro{\Ry}{(\BRy+\TRy)/2}
+\pgfmathsetmacro{\Rz}{(\BRz+\TRz)/2}
+  
+\pgfmathsetmacro{\Cx}{(\Bx+\Tx)/2}
+\pgfmathsetmacro{\Cy}{(\By+\Ty)/2}
+\pgfmathsetmacro{\Cz}{(\Bz+\Tz)/2}
+
+  
+%receivers
+\pgfmathsetmacro{\r}{.2}
+\pgfmathsetmacro{\h}{.125}
+
+\pgfmathsetmacro{\rxa}{2.5}
+\pgfmathsetmacro{\rya}{-2.5}
+
+\pgfmathsetmacro{\rxb}{-2.0}
+\pgfmathsetmacro{\ryb}{-1.5}
+
+\pgfmathsetmacro{\rxc}{1.5}
+\pgfmathsetmacro{\ryc}{2.25}
+ 
+\pgfmathsetmacro{\rxm}{(\rxa+\rxb+\rxc)/3}
+\pgfmathsetmacro{\rym}{(\rya+\ryb+\ryc)/3}
+ 
+\pgfmathsetmacro{\rxa}{\rxa-\rxm}
+\pgfmathsetmacro{\rya}{\rya-\rym}
+
+\pgfmathsetmacro{\rxb}{\rxb-\rxm}
+\pgfmathsetmacro{\ryb}{\ryb-\rym}
+
+\pgfmathsetmacro{\rxc}{\rxc-\rxm}
+\pgfmathsetmacro{\ryc}{\ryc-\rym}
+ 
+\pgfmathsetmacro{\rxm}{\rxm-\rxm}
+\pgfmathsetmacro{\rym}{\rym-\rym}
+
+
+\pgfmathsetmacro{\RmLx}{\BLx-\offset*cos(\azi+180)}
+\pgfmathsetmacro{\RmLy}{\BLy-\offset*sin(\azi+180)}
+\pgfmathsetmacro{\RmLz}{0}
+
+\pgfmathsetmacro{\RmRx}{\BRx-\offset*cos(\azi+180)}
+\pgfmathsetmacro{\RmRy}{\BRy-\offset*sin(\azi+180)}
+\pgfmathsetmacro{\RmRz}{0}
+
+
+\pgfmathsetmacro{\offseta}{abs( (\BRy-\BLy)*\rxa - (\BRx-\BLx)*\rya + \BRx*\BLy - \BRy*\BLx ) / sqrt( (\BRy-\BLy)^2 + (\BRx-\BLx)^2 )}
+
+\pgfmathsetmacro{\RaLx}{\BLx-\offseta*cos(\azi+180)}
+\pgfmathsetmacro{\RaLy}{\BLy-\offseta*sin(\azi+180)}
+\pgfmathsetmacro{\RaLz}{0}
+
+\pgfmathsetmacro{\RaRx}{\BRx-\offseta*cos(\azi+180)}
+\pgfmathsetmacro{\RaRy}{\BRy-\offseta*sin(\azi+180)}
+\pgfmathsetmacro{\RaRz}{0}
+
+\pgfmathsetmacro{\offsetb}{abs( (\BRy-\BLy)*\rxb - (\BRx-\BLx)*\ryb + \BRx*\BLy - \BRy*\BLx ) / sqrt( (\BRy-\BLy)^2 + (\BRx-\BLx)^2 )}
+
+\pgfmathsetmacro{\RbLx}{\BLx-\offsetb*cos(\azi+180)}
+\pgfmathsetmacro{\RbLy}{\BLy-\offsetb*sin(\azi+180)}
+\pgfmathsetmacro{\RbLz}{0}
+
+\pgfmathsetmacro{\RbRx}{\BRx-\offsetb*cos(\azi+180)}
+\pgfmathsetmacro{\RbRy}{\BRy-\offsetb*sin(\azi+180)}
+\pgfmathsetmacro{\RbRz}{0}
+
+
+\pgfmathsetmacro{\offsetc}{abs( (\BRy-\BLy)*\rxc - (\BRx-\BLx)*\ryc + \BRx*\BLy - \BRy*\BLx ) / sqrt( (\BRy-\BLy)^2 + (\BRx-\BLx)^2 )}
+
+\pgfmathsetmacro{\RcLx}{\BLx-\offsetc*cos(\azi+180)}
+\pgfmathsetmacro{\RcLy}{\BLy-\offsetc*sin(\azi+180)}
+\pgfmathsetmacro{\RcLz}{0}
+
+\pgfmathsetmacro{\RcRx}{\BRx-\offsetc*cos(\azi+180)}
+\pgfmathsetmacro{\RcRy}{\BRy-\offsetc*sin(\azi+180)}
+\pgfmathsetmacro{\RcRz}{0}
+
+ 
+% vectors
+\pgfmathsetmacro{\ceff}{2.5}
+\pgfmathsetmacro{\capp}{\ceff * cos \el}
+
+\pgfmathsetmacro{\ceffx}{\ceff*cos(\el)*cos(\azi)}
+\pgfmathsetmacro{\ceffy}{\ceff*cos(\el)*sin(\azi)}
+\pgfmathsetmacro{\ceffz}{-\ceff*sin(\el)}
+
+\pgfmathsetmacro{\cappx}{\capp*cos(\azi)}
+\pgfmathsetmacro{\cappy}{\capp*sin(\azi)}
+\pgfmathsetmacro{\cappz}{0}
+ 
+ 

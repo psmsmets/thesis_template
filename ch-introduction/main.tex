@@ -1,0 +1,139 @@
+% CHAPTER
+% Abstract
+\chapter{Introduction}\label{ch:introduction}
+
+\epigraph{
+   ``Stratospheric sudden warmings are the clearest and strongest manifestation\\
+   of dynamical coupling in the stratosphere-troposphere system.''
+}{Charlton and Polvani, 2007}
+
+\blfootnote{Published as: Poe,~E.~A., ... . \publicationNote
+}
+
+\noindent
+We start the first chapter of this thesis with an \verb|\epigraph|. And I prefer to start the first paragraph of each chapter with \verb|\noindent| as within a (sub)section.
+
+%
+% - Section
+% 
+\section{Section}
+\label{introduction:sec}
+%
+
+Up to three levels with numbering (chapter, section, subsection) and a fourth unnumbered level (subsubsection).
+
+%
+% -- Subsection
+% 
+\subsection{Subsection}
+\label{introduction:sec:subsec}
+%
+
+%
+% --- Subsubsection
+% 
+\subsubsection{Subsubsection}
+\label{introduction:sec:subsec:subsubsec}
+%
+
+%
+% - Section
+% 
+\section{Some blindtext}
+
+\blindtext[1]
+
+\bigskip
+
+\blindtext[2]
+
+%
+% -- Subsection
+% 
+\subsection{Itemize}
+
+\blinditemize[3]
+
+%
+% -- Subsection
+% 
+\subsection{Enumerate}
+
+\blindenumerate[3]
+
+%
+% -- Subsection
+% 
+\subsection{Description}
+
+\blinddescription[3]
+
+%
+% - Section
+% 
+\section{Figure and caption}
+
+\blindtext[2]
+
+\begin{figure}[t]
+\centering{
+\input{ch-introduction/figs/COSPAR_profile_both}%
+}
+\caption{This is how a caption looks like.}
+\label{fig:introduction}
+\end{figure} 
+
+\blindtext[1]
+
+
+%
+% - Section
+% 
+\section{A rounded box that floats!}
+%
+
+A floating rounded box can be used to provide additional information without the need for manually interrupting your main content. Within the box you can literally do what you want and floating behaves like a figure.
+
+
+\begin{roundedbox}[b]
+%
+\runinhead{Roundedbox with a description} can be used to highlight or further explain anything. The content is placed within a grey floating! box with rounded corners. No need to manually interrupt your main content!
+%
+\smallskip
+%
+\begin{description}
+\item [Major] A latitudinal mean temperature increase poleward of 60$^{\circ}$ latitude with an associated easterly circulation around 10\,hPa accompanied with either a vortex displacement or vortex split. Major warmings occur mostly in January--February.
+\item [Minor] Zonal winds in the stratosphere weaken, reversing the temperature gradient between the poles and midlatitudes, but do not lead to a breakdown nor reversing of the polar vortex.
+\item [Canadian] An early winter warming with strong non-zonal character solely occurring in the Northern Hemisphere. The net zonal winds briefly change but are not strong enough to cause a breakdown of the polar vortex.
+\item [Final] A major warming which appears at the end of the winter indicating the transition from a cold winter system to a warm high-pressure system due to the change from polar night to polar day.
+\end{description}
+%
+\end{roundedbox}
+
+
+%
+% - Section
+% 
+\section{Blank footnote and publicationNote}
+%
+Since this chapter is published elsewhere, a blank footnote with the publication details is added on the first page using \verb|\blfootnote| and a \verb|\publicationNote| directly after the chapter title.
+
+\smallskip
+
+The text of the \verb|\publicationNote| can be altered in the main \LaTeX \ file \verb|thesis.tex|
+
+%
+% - Section
+% 
+\section{Abstracts}
+%
+
+\subsection{chapterabstract}
+
+If published a chapter you can add the abstract to the beginning using the \verb|chapterabstract| environment. A pagebreak is added afterwards to start the first section on a new page.
+
+\subsection{sectionabstract}
+
+Similarly you can an abstract to a section, for example, if you present two letters in a single chapter. Place each letter in a \verb|section| followed by the \verb|\blfootnote| and the \verb|\publicationNote| and then add a \verb|\begin{sectionabstract}| and \verb|\end{sectionabstract}|.
+In this case, no pagebreak is added afterwards.
+

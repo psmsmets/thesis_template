@@ -1,0 +1,173 @@
+\documentclass[10pt]{book}
+% ------- Packages and Settings --------
+ 
+% GENERAL 
+
+% language
+\usepackage[english,dutch]{babel}
+\babeltags{en = english}
+\babeltags{nl = dutch}
+\selectlanguage{english}
+ 
+%%%%%%%%%%%
+% Set thesis style
+%%%%%%%%%%%
+\usepackage[screen]{thesis}
+%
+% Shortcuts:
+%
+%	screen			enables options	 : booklet
+%	print				enable options	 : booklet scaled, bindingoffset
+%
+% All optios
+%	booklet			papersize 17x24cm
+%	bookletscaled		papersize 17x24cm on a regular a4paper with crop marks
+%	bindingoffset		set 6.5mm binding offset
+%	cmyk				force (tikz) cmyk colours
+%	newfonts			use new modern fonts garamondx and newtxmath
+%	norulers			remove header rulers
+%	italic				put header chapter and section in italic
+%	thumbs			enable chapter thumbs
+%	debug			enable geometry showframe and showcrop
+
+% custom hypens
+\hyphenation{stra-to-pause}
+\hyphenation{Bre-khov-skikh}
+
+
+
+% --------------- Document -----------------
+\begin{document}
+
+%%%% ENGLISH %%%%%
+\selectlanguage{english}
+%%%%%%%%%%%%%%%
+
+\crop[cam] % remove if you don't want crop marks when using bookletscaled
+
+%%%%%%%%%%%%%
+% TITLE
+%%%%%%%%%%%%%
+\title{A subtitle}{My doctoral thesis title}
+\author{Edgar}{Allan}{Poe}
+
+\pagestyle{empty}
+
+\begin{center}
+
+{\makeatletter
+\bfseries\Large\sffamily{Propositions}
+\makeatother}
+
+\smallskip
+
+{\large accompanying the dissertation}
+
+\bigskip
+\medskip
+
+%% Print the title.
+{\makeatletter
+\bfseries\LARGE\sffamily{\@title}
+\makeatother}
+
+%% Print the optional subtitle.
+{\makeatletter
+\ifx\@subtitle\undefined\else
+    \smallskip
+    \Large\@subtitle
+\fi
+\makeatother}
+
+\medskip
+
+{\large by}
+
+\medskip
+
+\makeatletter
+{\large \@firstname~\@middlename~{\MakeUppercase \@lastname}}
+\makeatother
+
+\end{center}
+
+\bigskip
+
+\begin{enumerate}
+	\item A first proposition.
+	{\hfill \sffamily{\footnotesize Chapter~3~of~this~thesis}}
+	\item ...
+\end{enumerate}
+
+\vfill
+
+\bigskip
+
+\noindent These propositions are considered as opposable and defendable and as such have been approved by the promotor Prof.~dr. ...
+
+%%%%%%%%%%%%%%%
+
+\clearpage
+
+%%%%% DUTCH %%%%%%
+\selectlanguage{dutch}
+%%%%%%%%%%%%%%%%
+
+\pagestyle{empty}
+
+\begin{center}
+
+{\makeatletter
+\bfseries\Large\sffamily{Stellingen}
+\makeatother}
+
+\smallskip
+
+{\large behorende bij het proefschrift}
+
+\bigskip
+\medskip
+
+%% Print the title.
+{\makeatletter
+\bfseries\LARGE\sffamily{\@title}
+\makeatother}
+
+%% Print the optional subtitle.
+{\makeatletter
+\ifx\@subtitle\undefined\else
+    \smallskip
+    \Large\@subtitle
+\fi
+\makeatother}
+
+\medskip
+
+{\large door}
+
+\medskip
+
+\makeatletter
+{\large \@firstname~\@middlename~{\MakeUppercase \@lastname}}
+\makeatother
+
+\end{center}
+
+\bigskip
+
+\begin{enumerate}
+	\item Mijn eerste stelling.
+	{\hfill \sffamily{\footnotesize Hoofdstuk~3~van~dit~proefschrift}}
+
+	\item ...
+\end{enumerate}
+
+\vfill
+
+\bigskip
+
+\noindent Deze stellingen worden opponeerbaar en verdedigbaar geacht en zijn als zodanig goedgekeurd door de promotor Prof.~dr. ...
+
+
+\end{document}
+% ------------------------------------------------

@@ -1,0 +1,172 @@
+\pdfminorversion=5 
+%\pdfcompresslevel=9
+%\pdfobjcompresslevel=2
+\documentclass[10pt]{book}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% 					PACKAGES AND SETTINGS
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+% GENERAL 
+
+% language
+\usepackage[english,dutch]{babel}
+\babeltags{en = english}
+\babeltags{nl = dutch}
+\selectlanguage{english}
+\usepackage{blindtext} % lorum ipsum dummy text
+ 
+%%%%%%%%%%%
+% Set thesis style
+%%%%%%%%%%%
+\usepackage[screen]{thesis}
+%
+% Shortcuts:
+%
+%	screen				enables options	 : booklet
+%	print				enable options	 : booklet scaled, bindingoffset
+%
+% All optios
+%	booklet				papersize 17x24cm
+%	bookletscaled		papersize 17x24cm on a regular a4paper with crop marks
+%	bindingoffset		set 6.5mm binding offset
+%	cmyk				force (tikz) cmyk colours
+%	newfonts			use new modern fonts garamondx and newtxmath
+%	norulers			remove header rulers
+%	italic				put header chapter and section in italic
+%	thumbs				enable chapter thumbs
+%	debug				enable geometry showframe and showcrop
+
+
+% custom hypens
+\hyphenation{stra-to-pause}
+\hyphenation{Bre-khov-skikh}
+
+% Some common stuff
+\newcommand{\publicationNote}{\newline Note that minor changes have been introduced to make the text consistent with the other chapters.}
+
+% a file with custom math definitions
+\include{math_definitions}
+
+%%%%%%%%
+% ADDITIONAL
+%%%%%%%%
+
+% figures
+\usepackage{graphicx}
+
+%% Define path for figures -- for safety, keep the last /
+\graphicspath{{ch-introduction/figs/}{ch-first/figs/}{ch-second/figs/}{ch-another/figs}{app/figs/}}
+
+% Long tables spanning multiple pages (list of symbols)
+\usepackage{longtable}
+
+% For whole page figures, to put a caption on the following page
+%
+%   Defines FPfigure environment (\begin and \end) to put around a regular
+%   figure environment to place the caption automatically on the following
+%   page.
+%   Make sure that the fltpage.sty file is present!
+%
+\usepackage[CaptionAfterwards]{fltpage}
+
+%%%%%%%%%%
+% TIKZ/PGF
+%%%%%%%%%%
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\usepackage{arrayjobx}
+\usepackage{scalerel}
+\usepackage{stackengine}
+\usetikzlibrary{arrows,trees,shapes,backgrounds,calc,quotes,angles,positioning,intersections,patterns,decorations.markings}
+
+\tikzset{
+    %Define standard arrow tip
+    >=stealth',
+    % Define arrow style
+    pil/.style={
+           ->,
+           thick,
+           shorten <=2pt,
+           shorten >=2pt,}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% 							DOCUMENT
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\crop[cam] % remove if you don't want crop marks when using bookletscaled
+
+%%%%%%%%%%%%%
+% TITLE
+%%%%%%%%%%%%%
+\title{A subtitle}{My doctoral thesis title 2}
+\author{Edgar}{Allan}{Poe}
+
+\include{title/title_en}
+
+\dedication{\epigraph{For you}{}}
+
+%%%%%%%%%%%%%
+% FRONT
+%%%%%%%%%%%%%
+\frontmatter
+
+\include{preface/preface} % if you don't like acknowledgements at the end
+\include{summary/summary}% summary
+
+\selectlanguage{dutch}
+\include{summary/samenvatting}% samenvatting
+\selectlanguage{english}
+
+\tableofcontents	% table of contents
+
+%%%%%%%%%%%%%
+% BODY
+%%%%%%%%%%%%%
+\mainmatter
+
+\include{ch-introduction/main}
+\include{ch-first/main}
+\include{ch-another/main}
+\include{ch-conclusions/main}
+
+%%%%%%%%%%%%%
+% BACKMATTER
+%%%%%%%%%%%%%
+\appendix
+
+\include{app/app-theory}
+
+%%%%%%%%%%%%%
+% BIBLIO
+%%%%%%%%%%%%%
+\backmatter
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Bibliography}
+\markboth{Bibliography}{Bibliography}
+{\footnotesize
+\bibliographystyle{agufull08} % using AGU's agufull08.sty format.
+\bibliography{psmets}
+}
+
+% list of symbols
+\include{lists-symb-abbr/main}
+
+% a cv and list of publications
+\include{cv/cv}
+
+% empty page at the end
+\cleardoublepage
+\thispagestyle{empty}
+\newpage~
+
+\end{document}
+% ------------------------------------------------

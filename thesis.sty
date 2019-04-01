@@ -1,0 +1,816 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX2e style file for Ph.D. Thesis
+%
+% Useage: 
+%	\usepackage[screen]{thesis}
+%
+% Shortcuts:
+%
+%	screen			enables options	 : booklet
+%	print			enable options	 : booklet scaled, cmyk, bindingoffset
+%
+% All optios
+%	booklet			papersize 17x24cm
+%	bookletscaled		papersize 17x24cm on a regular a4paper with crop marks
+%	bindingoffset		set 6.5mm binding offset
+%	cmyk			force (tikz) cmyk colours
+%	newfonts		use new modern fonts garamondx and newtxmath
+%	norulers		remove header rulers
+%	italic			put header chapter and section in italic
+%	thums			enable chapter thumbs
+%	debug			enable geometry showframe and showcrop
+%
+%
+% version 1.0 - 15 december 1994: initial version Erwin Giling
+% version 1.1 - 25 march 1996: Thesis 1-1 version Jan Thorbecke
+% version 2.0 - 17 march 1997: to thesis style applied Geophysics
+% version 3.0 - 02 june 2015: fixes and changes by Pieter Smets, KNMI / TU Delft
+% version 3.1 - 06 april 2017: fixes and changes by Pieter Smets, KNMI / TU Delft
+% version 3.2 - 15 februari 2018: changes by Pieter Smets, KNMI / TU Delft
+% version 3.3 - 4 March 2018: changes by Pieter Smets, KNMI / TU Delft
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{thesis}
+
+\usepackage{kvoptions}
+\usepackage{ifthen}
+
+\DeclareBoolOption[false]{print}
+\DeclareComplementaryOption{screen}{print}
+
+\DeclareBoolOption[false]{bindingoffset}
+\DeclareBoolOption[false]{booklet}
+\DeclareBoolOption[false]{bookletscaled}
+\DeclareBoolOption[false]{norulers}
+\DeclareBoolOption[false]{italic}
+\DeclareBoolOption[false]{newfonts}
+\DeclareBoolOption[false]{thumbs}
+\DeclareBoolOption[false]{cmyk}
+\DeclareBoolOption[false]{debug}
+\ProcessKeyvalOptions{thesis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% my aliases
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifthesis@print
+%  \thesis@cmyktrue
+  \thesis@bindingoffsettrue
+  \thesis@bookletscaledtrue
+  \thesis@bookletfalse
+\else
+%  \thesis@cmykfalse
+  \thesis@bindingoffsetfalse
+  \thesis@booklettrue
+  \thesis@bookletscaledfalse
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% necessary packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{afterpage}
+\usepackage{amsmath,amsfonts,amssymb}
+%\usepackage{array}
+%\usepackage{float}
+\usepackage{helvet}
+\usepackage[square]{natbib} 
+%\usepackage{pifont}
+%\usepackage{verbatim}
+\usepackage[nooneline]{caption}
+%\usepackage{pstcol}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{pst-grad}
+\usepackage{pst-coil}
+%graphicxs recommended after pst-all
+\usepackage{graphicx}
+\usepackage[figuresright]{rotating}
+\usepackage{rotating}
+\usepackage{url}
+
+\usepackage{geometry}
+
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc,babel}
+
+% colorbox with rounded edges
+\usepackage[framemethod=tikz]{mdframed}
+
+% Fonts
+\ifthesis@newfonts
+	\usepackage{lmodern}
+	\usepackage[T1]{fontenc}
+%	\usepackage{garamondx}
+	\usepackage[vvarbb,cmbraces]{newtxmath} % [garamondx,cmbraces]
+	\usepackage[scaled=1.1]{CormorantGaramond} % [light,scaled=1.1] ?
+\else
+%	\usepackage{inputenc} % original Läslo 
+	\usepackage{lmodern}
+	\usepackage[T1]{fontenc} % computer modern
+\fi
+
+\usepackage{psfrag}     
+
+\usepackage{fancyhdr}
+\renewcommand{\headrulewidth}{0pt} % remove lines as well
+\renewcommand{\footrulewidth}{0pt}
+
+\usepackage{etoolbox}
+\usepackage{newfloat}
+\usepackage{enumitem}
+\usepackage{etaremune}
+\usepackage[referable]{threeparttablex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define some colours
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthesis@cmyk
+  \selectcolormodel{cmyk}
+  % gray => cmyk(0,0,0,1-gray)
+  \definecolor{lightest-grey}{cmyk}{0,0,0,0.125}
+  \definecolor{lighter-grey}{cmyk}{0,0,0,0.250}
+  \definecolor{light-grey}{cmyk}{0,0,0,0.375}
+  \definecolor{grey}{cmyk}{0,0,0,0.500}
+  \definecolor{dark-grey}{cmyk}{0,0,0,0.625}
+  \definecolor{darker-grey}{cmyk}{0,0,0,0.750}
+  \definecolor{darkest-grey}{cmyk}{0,0,0,0.875}
+  \definecolor{colour-force}{cmyk}{0,0,0,0.750} % darker-grey
+\else
+  \definecolor{lightest-grey}{gray}{0.800}
+  \definecolor{lighter-grey}{gray}{0.700}
+  \definecolor{light-grey}{gray}{0.600}
+  \definecolor{grey}{gray}{0.500}
+  \definecolor{dark-grey}{gray}{0.400}
+  \definecolor{darker-grey}{gray}{0.300}
+  \definecolor{darkest-grey}{gray}{0.200}
+  \definecolor{colour-force}{rgb}{1,0,0} % darker-grey
+\fi
+
+           
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% set page layout here explicitly
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%\setlength{\oddsidemargin}{0.pt}
+%%\setlength{\evensidemargin}{0.pt}
+%%\setlength{\topmargin}{-0.5cm}
+%%\setlength{\headsep}{1.0cm}
+%%\setlength{\footskip}{1.cm}
+%%%\setlength{\textwidth}{16.5cm}
+%%%\setlength{\textheight}{22.0cm}
+%%\setlength{\hoffset}{-0.3cm}
+%%\setlength{\voffset}{1.0cm}
+
+
+\ifthenelse{\boolean{thesis@bookletscaled} \or \boolean{thesis@booklet} }
+{
+	%% 170mm x 240mm
+	\geometry{
+		papersize = {170mm,240mm},
+		layoutsize = {170mm,240mm},
+		layoutoffset = {0mm,0mm},
+		hscale = 0.75,
+		vscale = 0.8
+	}
+}{
+	%% regular A4.
+	\geometry{paper=a4paper}
+	\setlength{\oddsidemargin}{0.pt}
+	\setlength{\evensidemargin}{0.pt}
+	\setlength{\topmargin}{-0.5cm}
+	\setlength{\headsep}{1.0cm}
+	\setlength{\footskip}{1.cm}
+	\setlength{\textwidth}{16.5cm}
+	\setlength{\textheight}{22.0cm}
+	\setlength{\hoffset}{-0.3cm}
+	\setlength{\voffset}{1.0cm}
+}
+
+\geometry{portrait,twoside,centering}
+
+\ifthesis@debug
+	\geometry{showcrop,showframe,verbose}
+\fi
+\ifthesis@bindingoffset
+	\geometry{bindingoffset=6.5mm}
+\fi
+
+\ifthesis@bookletscaled
+	\usepackage[cam,cross,a4,center,dvips]{crop}
+\else
+	\newcommand*{\crop}[1][]{} % catch the command from begin document
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% chapter counting ...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{totcount}
+\usepackage{assoccnt}
+
+\regtotcounter{chapter}
+\newtotcounter{totalchapters}
+\newtotcounter{appendices}
+\newtotcounter{mainchapters}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% redefine backmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newif\ifinappendix% Default is \inappendixfalse
+\let\oldappendix\appendix% Store \appendix
+\renewcommand{\appendix}{% Update \appendix
+  \oldappendix% Default \appendix
+  \inappendixtrue% Set switch to true
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define chapter thumbs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \pgfmathsetmacro{\thumbs}{\number\numexpr\totvalue{mainchapters}\relax}
+\ifthenelse{\totvalue{mainchapters}=0}{%
+  \def\thumbs{1}
+}{%
+  \def\thumbs{\totvalue{mainchapters}}
+}%
+
+\tikzset{
+  thumbStyle/.style={
+    rectangle,
+    inner sep=0pt,
+    outer sep=0pt,
+%   rounded corners=1mm,
+    fill=lighter-grey,
+    minimum height=\textheight/\thumbs/1 pt,
+    minimum width=4mm
+  }
+}
+
+\ifthenelse{\boolean{thesis@thumbs}}
+{
+  \newcommand*\chapthumbEven{%
+    \pgfmathsetmacro{\thumbshift}{-\textheight/\thumbs*(\thechapter-1)}
+    \pgfmathsetmacro{\voff}{\textheight/\thumbs/2+\Gm@tmargin+\Gm@layoutvoffset+5}
+    \pgfmathsetmacro{\hoff}{\Gm@layouthoffset}
+    \begin{tikzpicture}[remember picture,overlay]
+      \path coordinate (thumb) at
+        ($ (current page.north east)+(-\hoff pt,-\voff pt)+(0mm,\thumbshift pt) $);%
+      \node[thumbStyle] at (thumb) {};%
+    \end{tikzpicture}%
+  }%
+  \newcommand*\chapthumbOdd{%
+    \pgfmathsetmacro{\thumbshift}{-\textheight/\thumbs*(\thechapter-1)}
+    \pgfmathsetmacro{\voff}{\textheight/\thumbs/2+\Gm@tmargin+\Gm@layoutvoffset+5}
+    \pgfmathsetmacro{\hoff}{\Gm@layouthoffset}
+    \begin{tikzpicture}[remember picture,overlay]
+      \path coordinate (thumb) at
+       ($ (current page.north west)+(\hoff pt,-\voff pt)+(0mm,\thumbshift pt) $);%
+      \node[thumbStyle] at (thumb) {};%
+    \end{tikzpicture}%
+  }%
+}{
+  %% no chapter thumbs.
+  \newcommand*\chapthumbEven{}%
+  \newcommand*\chapthumbOdd{}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% No skipping bewteen paragraphs 0.15 pt rubber length
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\setlength{\parskip}{0pt plus 0.15pt minus 0.15pt}
+\setlength{\parskip}{0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% three-part headers and no footers with automatic rulers.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\headsize}{\footnotesize\selectfont}
+
+
+\pagestyle{fancyplain}
+\addtolength{\headheight}{2.5pt}
+
+\ifthesis@norulers
+\else
+	\renewcommand{\headrulewidth}{0.5pt}
+\fi
+
+\renewcommand{\chaptermark}[1]{\markboth{\sffamily\headsize#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\sffamily\headsize\thesection\ #1}}
+%\lhead[\fancyplain{}{\normalfont\normalsize\thepage}]{\fancyplain{}{\nouppercase{\sffamily\headsize\rightmark}}}
+%\rhead[\fancyplain{}{\nouppercase{\sffamily\headsize\leftmark}}]{\fancyplain{}{\normalfont\normalsize\thepage}}
+\lhead[
+	\fancyplain{}{\bfseries\sffamily\headsize\thepage}%
+]{
+    \fancyplain{}{\nouppercase{\sffamily\headsize%
+      \ifthesis@italic
+        \textit{\rightmark}%
+      \else
+        {\rightmark}%
+      \fi
+      \if@mainmatter
+        \ifinappendix
+          %
+        \else
+          \chapthumbEven%
+        \fi%
+      \fi%
+    }}%
+}
+\rhead[
+  \if@mainmatter
+    \ifinappendix
+      %
+    \else
+      \chapthumbOdd%
+    \fi%
+  \fi%
+  \fancyplain{}{\nouppercase{\sffamily\headsize%
+    \ifthesis@italic
+      \textit{\leftmark}%
+    \else
+      {\leftmark}%
+    \fi
+  }}%
+]{
+	\fancyplain{}{\bfseries\sffamily\headsize\thepage}%
+}
+\cfoot[
+]{
+%	%% uncomment to set page number on first page chapter, center bottom
+%	\fancyplain{\bfseries\sffamily\small\thepage}{}
+}
+
+%\fancypagestyle{plain}{%
+%  \renewcommand{\headrulewidth}{1pt}%
+%  \fancyhf{}%
+%  \fancyfoot[c]{\normalfont\normalsize\thepage}%
+%}
+
+
+\fancypagestyle{empty}{%
+    \fancyhf{}
+    \renewcommand*\headrulewidth{0pt}
+    \renewcommand*\footrulewidth{0pt}
+    \fancyhead{}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% definition of 'part'.  We have to re-define some chapter definitions
+% of the book.cls here.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand\part{\cleardoublepage
+                 \thispagestyle{plain}%
+                 \if@twocolumn
+                     \onecolumn
+                     \@tempswatrue
+                   \else
+                     \@tempswafalse
+                 \fi
+                 \null\vfil
+                 \secdef\@part\@spart}
+
+\def\@part[#1]#2{%
+    \ifnum \c@secnumdepth >-2\relax
+      \refstepcounter{part}%
+      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+    \else
+      \addcontentsline{toc}{part}{#1}%
+    \fi
+    \markboth{}{}%
+    {\centering
+     \interlinepenalty \@M
+     \normalfont
+     \ifnum \c@secnumdepth >-2\relax
+       \huge\bfseries\sffamily \partname~\thepart
+       \par
+       \vskip 20\p@
+     \fi
+     \Huge \sffamily \bfseries #2
+     \par
+     \vskip 40\p@
+     \small \rmfamily \mdseries
+     \input{part\thechapter.txt}
+     }%
+    \@endpart}
+\def\@spart#1{%
+    {\centering
+     \interlinepenalty \@M
+     \normalfont
+%ORIGINAL     \Huge \bfseries #1\par}%
+     \Huge \sffamily \bfseries #1\par}%
+    \@endpart}
+\def\@endpart{\vfil\newpage
+              \if@twoside
+                \null
+                \thispagestyle{empty}%
+                \newpage
+              \fi
+              \if@tempswa
+                \twocolumn
+              \fi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% definition of 'chapter'.  We have to re-define some chapter definitions
+% of the book.cls here.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand\chapter{\if@openright\cleardoublepage\else\clearpage\fi
+                    \thispagestyle{plain}%
+                    \global\@topnum\z@
+                    \@afterindentfalse
+                    \secdef\@chapter\@schapter
+}
+\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+                       \if@mainmatter
+                         \refstepcounter{chapter}%
+                         \typeout{\@chapapp\space\thechapter.}%
+                         \addcontentsline{toc}{chapter}%
+                                   {{\protect\numberline{\thechapter}#1}}%
+                       \else
+                         \addcontentsline{toc}{chapter}{{#1}}%
+                       \fi
+                    \else
+                      \addcontentsline{toc}{chapter}{{#1}}%
+                    \fi
+                    \chaptermark{#1}%
+                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
+                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
+                    \if@twocolumn
+                      \@topnewpage[\@makechapterhead{#2}]%
+                    \else
+                      \@makechapterhead{#2}%
+                      \@afterheading
+                    \fi}
+\def\@makechapterhead#1{%
+    \vspace*{15\p@}%
+    {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+	\hfill{\fontsize{3.5cm}{1em}\selectfont\bfseries\sffamily \thechapter}%
+%%        \hfill{\Huge\bfseries\sffamily \thechapter}
+        \par\nobreak
+        \vskip 15\p@
+      \fi
+    \fi
+    \interlinepenalty\@M
+	\huge \bfseries\sffamily #1\par
+    \vskip 20\p@
+%    \rule{\textwidth}{0.7pt}          % commented by Michel to get rid of line at start of chapter
+%
+    \nobreak
+    \vskip 40\p@
+    \stepcounter{totalchapters}%
+      \if@mainmatter
+        \ifinappendix
+          \stepcounter{appendices}%
+        \else
+          \stepcounter{mainchapters}%
+        \fi%
+      \fi%
+  }}
+\def\@schapter#1{\if@twocolumn
+                   \@topnewpage[\@makeschapterhead{#1}]%
+                 \else
+                   \@makeschapterhead{#1}%
+                   \@afterheading
+                 \fi}
+\def\@makeschapterhead#1{%
+	\vspace*{15\p@}%
+  {\parindent \z@ \raggedright \normalfont
+	\vspace{3.5cm}\vspace{-1em}
+%    \par\nobreak
+%    \vskip 20\p@
+%    \interlinepenalty\@M
+	\huge \bfseries\sffamily #1\par
+    \vskip 20\p@
+%%    \rule{\textwidth}{0.7pt}
+%
+\nobreak
+    \vskip 40\p@
+  }}
+
+
+%
+\renewcommand{\section}{\@startsection{section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\normalfont\large\bfseries\sffamily}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries\sffamily\rule{1ex}{1ex}\hspace{1ex}}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\small\bfseries\sffamily}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                                    {3.25ex \@plus1ex \@minus.2ex}%
+                                    {-1em}%
+                                    {\normalfont\normalsize\bfseries\sffamily}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+                                       {3.25ex \@plus1ex \@minus .2ex}%
+                                       {-1em}%
+                                       {\normalfont\normalsize\bfseries\sffamily}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% some commands to handle float parameters
+% see The LaTeX companion Chapter 6
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{6}
+\renewcommand{\topfraction}{1.0}
+\renewcommand{\bottomfraction}{1.0}
+\renewcommand{\textfraction}{0.0}
+\renewcommand{\floatpagefraction}{0.7}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% minimize space between figure and caption and text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\abovecaptionskip}{0cm}
+\setlength{\belowcaptionskip}{0cm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Ah. You might want space between two successive figures, but the space
+% you showed is not realted to the caption.  It is between the top-float(s)
+% and the text:  \textfloatsep.  
+% Use \setlength{\textfloatsep}{35pt plus 15pt} for example.
+%
+%For more space between multiple "top" figures set a larger \floatsep.
+% 
+%Donald Arseneau asnd@triumf.ca
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      
+\setlength{\textfloatsep}{10pt plus 5pt minus 5pt}
+\setlength{\floatsep}{0pt plus 10pt minus 0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Redefine caption was %  \itshape\small
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\long\def\@makecaption#1#2{%
+  \itshape\small
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{{\bfseries \sffamily#1:} #2}%
+  \rule{\textwidth}{0.5pt}\\
+  {\bfseries \footnotesize \sffamily #1:} #2\par
+  \rule{\textwidth}{0.5pt}\\	
+  \vskip\belowcaptionskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% table adaptions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\arraystretch}{1.15}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% change itemize list
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\labelenumi}{\textbf{[\theenumi]}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% add theorem style
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem_tensor}{Theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% space before units, USE CONSISTENTLY!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\us}{\,}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% graphics path for package graphicx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\graphicspath{{/data/jeroeng/Thesis/intro/}{/data/jeroeng/Thesis/slip/}{/data/jeroeng/Thesis/mod1/}{/data/jeroeng/Thesis/expm/}{/data/jeroeng/Thesis/diff/}{/data/jeroeng/Thesis/trns/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% natbib punctuation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibpunct{[}{]}{;}{a}{,}{,}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% figure rule definition
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\figrule}{\rule{\textwidth}{0.4pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% my one PS-tricks default line-width, started 1.0 pt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newlength{\myl}
+\setlength{\myl}{0.75pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define font for citations etc.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\mycitefont}[1]{\textsc{\small #1}}
+\newcommand{\repair}[1]{\textnormal{\normalsize#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define font for events
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\event}[1]{\textsf{\footnotesize{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define last format
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\lastformat}{\\\vspace{-1.0ex}\begin{center}$\rule{1ex}{1ex}$\end{center}\vspace{0.5ex}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define subtitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Redefine the title command to accept an optional subtitle.
+\renewcommand*\title[2]{%
+    \def\@subtitle{#1}%
+    \def\@title{#2}%
+    %% Add the title to the PDF meta data.
+%    \hypersetup{pdftitle=#2}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% redefine author
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Redefine the author command to accept a first and last name, and to add the
+%% full name to the PDF meta data.
+\renewcommand*\author[3]{%
+    \def\@firstname{#1}%
+    \def\@middlename{#2}%
+    \def\@lastname{#3}%
+%    \hypersetup{pdfauthor=#1\ #2}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define dedication and epigraph
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% The dedication is vertically centered on a separate page and flushed to the
+%% right.
+\newcommand\dedication[1]{%
+    \thispagestyle{empty}%
+    \vspace*{\fill}%
+    \begin{flushright}%
+        #1%
+    \end{flushright}%
+    \vspace*{\fill}%
+    \thispagestyle{empty}%
+    \clearpage%
+    \thispagestyle{empty}%
+}
+
+%% The epigraph environment can be used to to add a quote to the title page of
+%% a chapter.
+\newcommand\epigraph[3][2\baselineskip]{%
+    \begin{flushright}%
+        {\rmfamily\itshape #2}%
+        \vskip 0.5\baselineskip%
+        #3%
+    \end{flushright}%
+    \vspace{#1}%
+}
+
+%% Define an unnumbered footnote command.
+\def\blfootnote{\xdef\@thefnmark{}\@footnotetext}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% making list of symbols automatically
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\newcommand{\listofsymbolsname}{List of Symbols}
+\newcommand{\listofsymbols}{%
+  \chapter*{\listofsymbolsname}%
+  \addcontentsline{toc}{chapter}{\sffamily\numberline{}\listofsymbolsname}%
+  \markboth{List of Symbols}{List of Symbols}%
+  \rule{\textwidth}{0.8pt}\\%
+  \parbox{0.05\textwidth}{}
+  \parbox{0.2\textwidth}{symbol}%
+  \parbox{0.2\textwidth}{[S.I.-unit]}%
+  \parbox{0.5\textwidth}{quantity}\\%
+  \vspace{1.6pt}%
+  \rule{\textwidth}{0.8pt}\\%
+  \@starttoc{los}%
+  \rule{\textwidth}{0.8pt}\\%
+}
+\newcommand{\mysym}[3]{%
+  \addtocontents{los}{%
+      \protect\parbox{0.05\textwidth}{}
+      \protect\parbox{0.2\textwidth}{$#1$}%
+      \protect\parbox{0.2\textwidth}{$#2$}%
+      \protect\parbox{0.5\textwidth}{#3}\\%
+      }%
+}%    
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% graphic number 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\een}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 1}}
+\newcommand{\twee}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 2}}
+\newcommand{\drie}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 3}}
+\newcommand{\vier}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 4}}
+\newcommand{\vijf}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 5}}
+\newcommand{\zes}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 6}}
+\newcommand{\zeven}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 7}}
+\newcommand{\acht}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 8}}
+\newcommand{\negen}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 9}}
+\newcommand{\tien}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 10}}
+\newcommand{\elf}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 11}}
+\newcommand{\twaalf}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 12}}
+\newcommand{\dertien}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 13}}
+\newcommand{\viertien}{\protect\pscirclebox[fillstyle=solid,fillcolor=white]{\upshape \sffamily \scriptsize 14}}
+%\newcommand{\een}{\ding{192}}
+%\newcommand{\twee}{\ding{193}}
+%\newcommand{\drie}{\ding{194}}
+%\newcommand{\vier}{\ding{195}}
+%\newcommand{\vijf}{\ding{196}}
+%\newcommand{\zes}{\ding{197}}
+%\newcommand{\zeven}{\ding{198}}
+%\newcommand{\acht}{\ding{199}}
+%\newcommand{\negen}{\ding{200}}
+%\newcommand{\tien}{\ding{201}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HYPHENATION COMMANDS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hyphenation{Rey-nold}
+\hyphenation{Ra-ma-swa-my}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EQUATIONS NUMBERING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\numberwithin{equation}{section}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CHAPTER ABSTRACT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{chapterabstract}{%
+      {\bfseries\sffamily\small Abstract\quad} 
+}{%
+  \clearpage%
+  \let\clearpage\relax%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION ABSTRACT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{sectionabstract}{%
+      {\bfseries\sffamily\small Abstract\quad} 
+}{%
+  \par%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ACKNOWLEDGEMENTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{acknowledgements}{%
+      {\bfseries\sffamily\footnotesize Acknowledgements\quad}\small
+}{%
+  \par%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COLOURED ROUNDED BOX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newmdenv[innerlinewidth=0pt, roundcorner=4pt, linecolor=lightest-grey, 
+backgroundcolor=lightest-grey, innerleftmargin=1em, innerrightmargin=1em,
+innertopmargin=1em, innerbottommargin=1em
+]{drawroundedbox}
+
+\DeclareFloatingEnvironment[fileext=frm,placement={!ht},name=Frame]{floatroundedbox}
+
+\newenvironment{roundedbox}[1][\unskip]{%
+  \begin{floatroundedbox}[#1]
+    \begin{drawroundedbox}
+}{%
+    \end{drawroundedbox}
+  \end{floatroundedbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% RUNIN HEADINGS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\runinhead}[1]{\textbf{#1}\hspace{.2em}}
+\newcommand{\subruninhead}[1]{\textit{#1}\hspace{.2em}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TOC
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\let\oldtableofcontents\tableofcontents% Store \tableofcontents
+\renewcommand{\tableofcontents}{% Update \tableofcontents
+  {\sffamily%
+  \oldtableofcontents% Default \tableofcontents
+  }%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLENOTES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewlist{tablenotes}{enumerate}{1}
+\makeatletter
+\setlist[tablenotes]{label=\tnote{\alph*},ref=\alph*,itemsep=\z@,topsep=\z@skip,partopsep=\z@skip,parsep=\z@,itemindent=\z@,labelindent=\tabcolsep,labelsep=.2em,leftmargin=*,align=left,before={\footnotesize}}
+\makeatother

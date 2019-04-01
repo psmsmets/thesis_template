@@ -1,0 +1,145 @@
+%
+% 3D plot
+%
+%\tdplotsetmaincoords{90}{53.13}
+\tdplotsetmaincoords{70}{115}
+\begin{tikzpicture}[tdplot_main_coords, scale=1]
+
+% axes
+\draw[->] (0,0,0) -- (0,0,5) node[anchor=south]{$z$}; 
+\draw[->] (0,0,0) -- (0,4.5,0) node[pos=1,anchor=west,sloped,above]{\small East};
+\draw[->] (0,0,0) -- (-5.5,0,0) node[pos=1,anchor=south west,sloped,above]{\small North};
+\draw (0,0,0) -- (4.5,0,0);
+\draw (0,0,0) -- (0,-4.5,0);
+\node[anchor=north west] at (-5.5,0,0) {y};
+\node[anchor=north] at (0,4.5,0) {x};
+
+
+% coordinates
+\path coordinate (O) at (\Cx,\Cy,\Cz)
+      coordinate(B) at (\Bx,\By,\Bz)
+      coordinate(T) at (\Tx,\Ty,\Tz)
+      coordinate(L) at (\Lx,\Ly,\Lz)
+      coordinate(R) at (\Rx,\Ry,\Rz)
+      coordinate(BL) at (\BLx,\BLy,\BLz)
+      coordinate(BR) at (\BRx,\BRy,\BRz)
+      coordinate(TL) at (\TLx,\TLy,\TLz)
+      coordinate(TR) at (\TRx,\TRy,\TRz)
+      coordinate(N) at (0,-1,0)
+      coordinate(E) at (1,0,0)
+      coordinate(S) at (0,1,0)
+      coordinate(W) at (-1,0,0)
+      coordinate (Bbapp) at (\Bx-\cappx,\By-\cappy,\Bz)
+      coordinate (Ebapp) at (\Ex,\Ey,\Ez);
+      ;
+      
+% dashed line s_0
+\draw[dashed] (Bbapp) -- (Ebapp);
+
+% plane
+\fill [lightest-grey, fill opacity = .75]   (BL) -- (BR) -- (TR) -- (TL) -- (BL) -- cycle;
+\draw [white] (TL) -- (TR) node [pos=.85, above, align=right, sloped, light-grey] (TextNode) {wavefront $\tau$};
+%\draw[light-grey, thick] (BL) -- (BR) node [pos=.1,below]{$\tau^\Gamma$};
+
+% Fix z-axis
+\draw (0,0,0) -- (0,0,\Zz);
+
+% receivers
+ \def \n {40};
+ 
+ \draw[dotted] (\rxa,0,0) -- (\rxa,\rya,0) node[anchor=north west]{$\mathbf{r}_2$};
+ \draw[dotted] (0,\rya,0) -- (\rxa,\rya,0); 
+ %node at ( \rxa, \rya, 0 ) [anchor=north]{$\mathbf{r}_2$};
+% \draw [black, fill=light-grey, fill opacity=1.0]
+%    plot [domain=0:360, samples=40, variable=\i] 
+%    (\rxa+\r*cos \i, \rya+\r*sin \i, 0) -- cycle node[anchor=north]{$\mathbf{r}_2$};
+ \foreach \i in {1,...,\n}
+ {
+ 	\pgfmathsetmacro{\dega}{(\i-1.1)*360/\n};
+	\pgfmathsetmacro{\degb}{(\i+0.1)*360/\n};
+	\path coordinate (tmpa) at ( \rxa+\r*cos \dega, \rya+\r*sin \dega, 0 )
+		coordinate (tmpb) at ( \rxa+\r*cos \dega, \rya+\r*sin \dega, \h )
+		coordinate (tmpc) at ( \rxa+\r*cos \degb, \rya+\r*sin \degb, \h )
+		coordinate (tmpd) at ( \rxa+\r*cos \degb, \rya+\r*sin \degb, 0 );
+ 	\fill [grey] (tmpa) -- (tmpb) -- (tmpc) -- (tmpd) -- cycle;
+  }
+ \draw [lighter-grey, fill=lighter-grey, line width=.25pt]
+    plot [domain=0:360, samples=\n, variable=\i] 
+    (\rxa+\r*cos \i, \rya+\r*sin \i, \h) -- cycle;
+		
+		
+ \draw[dotted] (\rxb,0,0) -- (\rxb,\ryb,0) node[anchor=north west]{$\mathbf{r}_3$};
+ \draw[dotted] (0,\ryb,0) -- (\rxb,\ryb,0); 
+ \foreach \i in {1,...,\n}
+ {
+ 	\pgfmathsetmacro{\dega}{(\i-1.1)*360/\n};
+	\pgfmathsetmacro{\degb}{(\i+0.1)*360/\n};
+	\path coordinate (tmpa) at ( \rxb+\r*cos \dega, \ryb+\r*sin \dega, 0 )
+		coordinate (tmpb) at ( \rxb+\r*cos \dega, \ryb+\r*sin \dega, \h )
+		coordinate (tmpc) at ( \rxb+\r*cos \degb, \ryb+\r*sin \degb, \h )
+		coordinate (tmpd) at ( \rxb+\r*cos \degb, \ryb+\r*sin \degb, 0 );
+ 	\fill [grey] (tmpa) -- (tmpb) -- (tmpc) -- (tmpd) -- cycle;
+  }
+ \draw [lighter-grey, fill=lighter-grey, line width=.25pt]
+    plot [domain=0:360, samples=\n, variable=\i] 
+    (\rxb+\r*cos \i, \ryb+\r*sin \i, \h) -- cycle;
+    
+
+ \draw[dotted] (\rxc,0,0) -- (\rxc,\ryc,0) node[anchor=north west]{$\mathbf{r}_4$};
+ \draw[dotted] (0,\ryc,0) -- (\rxc,\ryc,0); 
+ \foreach \i in {1,...,\n}
+ {
+ 	\pgfmathsetmacro{\dega}{(\i-1.1)*360/\n};
+	\pgfmathsetmacro{\degb}{(\i+0.1)*360/\n};
+	\path coordinate (tmpa) at ( \rxc+\r*cos \dega, \ryc+\r*sin \dega, 0 )
+		coordinate (tmpb) at ( \rxc+\r*cos \dega, \ryc+\r*sin \dega, \h )
+		coordinate (tmpc) at ( \rxc+\r*cos \degb, \ryc+\r*sin \degb, \h )
+		coordinate (tmpd) at ( \rxc+\r*cos \degb, \ryc+\r*sin \degb, 0 );
+ 	\fill [grey] (tmpa) -- (tmpb) -- (tmpc) -- (tmpd) -- cycle;
+  }
+ \draw [lighter-grey, fill=lighter-grey, line width=.25pt]
+    plot [domain=0:360, samples=\n, variable=\i] 
+    (\rxc+\r*cos \i, \ryc+\r*sin \i, \h) -- cycle;
+    
+    
+ \draw[dotted] (\rxm,0,0) -- (\rxm,\rym,0) node[anchor=north west]{$\mathbf{r}_1$};
+ \draw[dotted] (0,\rym,0) -- (\rxm,\rym,0); 
+ \foreach \i in {1,...,\n}
+ {
+ 	\pgfmathsetmacro{\dega}{(\i-1.1)*360/\n};
+	\pgfmathsetmacro{\degb}{(\i+0.1)*360/\n};
+	\path coordinate (tmpa) at ( \rxm+\r*cos \dega, \rym+\r*sin \dega, 0 )
+		coordinate (tmpb) at ( \rxm+\r*cos \dega, \rym+\r*sin \dega, \h )
+		coordinate (tmpc) at ( \rxm+\r*cos \degb, \rym+\r*sin \degb, \h )
+		coordinate (tmpd) at ( \rxm+\r*cos \degb, \rym+\r*sin \degb, 0 );
+ 	\fill [grey] (tmpa) -- (tmpb) -- (tmpc) -- (tmpd) -- cycle;
+  }
+ \draw [lighter-grey, fill=lighter-grey, line width=.25pt]
+    plot [domain=0:360, samples=\n, variable=\i] 
+    (\rxm+\r*cos \i, \rym+\r*sin \i, \h) -- cycle;
+ 
+% vectors
+
+\path coordinate (C) at (\Cx+\ceffx,\Cy+\ceffy,\Cz+\ceffz)
+	coordinate (Capp) at (\Cx+\cappx,\Cy+\cappy,\Cz+\cappz)
+	coordinate (Papp) at (\Cx+\ceffx-\cappx,\Cy+\ceffy-\cappy,\Cz+\ceffz)
+	coordinate (Bapp) at (\Bx+\cappx,\By+\cappy,\Bz);
+
+\draw[dashed] (Capp) -- (C);
+%\draw[dashed] (Papp) -- (C);
+\draw[dashed,grey] (B) -- (T);
+\draw[dashed,grey] (R) -- (L);
+
+\MarkRightAngle{B}{O}{C}
+\MarkRightAngle{O}{Capp}{C}
+
+\draw[red,->, thick] (O) -- (C) node[pos=.93,below,anchor=north east]{$\mathbf{p}_0$};
+\draw[red,->, thick] (O) -- (Capp)  node[anchor=west]{$\mathbf{s}_0$};
+
+\MarkRightAngle{L}{O}{C}
+
+\draw[red,->, thick] (B) -- (Bapp)  node[pos=.4, below, anchor=north]{$\mathbf{s}_0$};
+
+\pic["-$\theta$", draw=black, <-, angle eccentricity=1.5, angle radius=.5cm] {angle =  C--O--Capp};
+
+\end{tikzpicture}

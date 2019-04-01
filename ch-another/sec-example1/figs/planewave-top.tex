@@ -1,0 +1,82 @@
+%%%%%%%%%%
+%
+%.      xy view
+%
+%%%%%%%%%%
+\tdplotsetmaincoords{0}{90}
+\begin{tikzpicture}[tdplot_main_coords, scale=.525,baseline=(north.base)]
+
+% axes
+\draw (0,0,0) -- (4.0,0,0);
+\draw[->] (0,0,0) -- (0,4.5,0) node[anchor=north east]{$x$};
+\draw[->] (0,0,0) -- (-5,0,0) node[anchor=north west]{$y$};
+\draw (0,0,0) -- (0,-4.5,0);
+
+\node[anchor=south] at (-5.1,0,0) {\small North};
+\node[anchor=south] at (0,4.6,0) {\small East};
+  
+ 
+ % coordinates
+  \path coordinate (north) at (-5,0,0)
+      coordinate (O) at (\Cx,\Cy,\Cz)
+      coordinate(B) at (\Bx,\By,\Bz)
+      coordinate(T) at (\Tx,\Ty,\Tz)
+      coordinate(L) at (\Lx,\Ly,\Lz)
+      coordinate(R) at (\Rx,\Ry,\Rz)
+      coordinate(BL) at (\BLx,\BLy,\BLz)
+      coordinate(BR) at (\BRx,\BRy,\BRz)
+      coordinate(TL) at (\TLx,\TLy,\TLz)
+      coordinate(TR) at (\TRx,\TRy,\TRz)
+      coordinate(RmL) at (\RmLx,\RmLy,\RmLz)
+      coordinate(RmR) at (\RmRx,\RmRy,\RmRz)
+      coordinate(RaL) at (\RaLx,\RaLy,\RaLz)
+      coordinate(RaR) at (\RaRx,\RaRy,\RaRz)
+      coordinate(RbL) at (\RbLx,\RbLy,\RbLz)
+      coordinate(RbR) at (\RbRx,\RbRy,\RbRz)
+      coordinate(RcL) at (\RcLx,\RcLy,\RcLz)
+      coordinate(RcR) at (\RcRx,\RcRy,\RcRz)
+      ;
+
+%receivers
+ \draw[dotted] (\rxa,0,0) -- (\rxa,\rya,0) node[anchor=north west]{$\mathbf{r}_2$};
+ \draw[dotted] (0,\rya,0) -- (\rxa,\rya,0); 
+ \fill [lighter-grey] (\rxa,\rya,0) circle (\r); 
+
+ \draw[dotted] (\rxb,0,0) -- (\rxb,\ryb,0) node[anchor=north west]{$\mathbf{r}_3$};
+ \draw[dotted] (0,\ryb,0) -- (\rxb,\ryb,0); 
+ \fill [lighter-grey] (\rxb,\ryb,0) circle (\r); 
+
+ \draw[dotted] (\rxc,0,0) -- (\rxc,\ryc,0) node[anchor=north west]{$\mathbf{r}_4$};
+ \draw[dotted] (0,\ryc,0) -- (\rxc,\ryc,0); 
+ \fill [lighter-grey] (\rxc,\ryc,0) circle (\r); 
+    
+ \draw[dotted] (\rxm,0,0) -- (\rxm,\rym,0) node[anchor=north west]{$\mathbf{r}_1$};
+ \draw[dotted] (0,\rym,0) -- (\rxm,\rym,0); 
+ \fill [lighter-grey] (\rxm,\rym,0) circle (\r); 
+ 
+% vectors
+\path coordinate (Bnorth) at (-5,\By,\Bz) 
+        coordinate (Bapp) at (\Bx+\cappx,\By+\cappy,\Bz)
+	coordinate (Bbapp) at (\Bx-\cappx,\By-\cappy,\Bz)
+	coordinate (E) at (\Ex,\Ey,\Ez);
+	
+\MarkRightAngle{BL}{B}{Bapp}
+
+\draw[dashed,->,grey] (B) -- (Bnorth);
+\draw[dashed] (Bbapp) -- (E);
+
+\pic["\color{grey}$\phi_b$", draw=grey, <-, angle eccentricity=1.7, angle radius=.25cm] {angle =  Bbapp--B--Bnorth};
+\pic["$\phi$", draw=black, <-, angle eccentricity=1.5, angle radius=.35cm] {angle =  Bapp--B--Bnorth};
+    
+%% plane
+\draw[thick] (BL) -- (BR) node [pos=0,anchor=north, align=left] {$\tau$};
+
+\draw[green,ultra thin] (RmL) -- (RmR) node [pos=0,anchor=north, align=left] {$\tau_1$};
+\draw[green,ultra thin] (RaL) -- (RaR) node [pos=0,anchor=north, align=left] {$\tau_2$};
+\draw[green,ultra thin] (RbL) -- (RbR) node [pos=0,anchor=north, align=left] {$\tau_3$};
+\draw[green,ultra thin] (RcL) -- (RcR) node [pos=0,anchor=north, align=left] {$\tau_4$};
+
+%\draw[light-grey,<-, thick] (B) -- (Bbapp)  node[pos=.6,anchor=south west]{$\mathbf{s}_0$};
+\draw[red,->, thick] (B) -- (Bapp)  node[pos=1,anchor=south]{$\mathbf{s}_0$};
+
+\end{tikzpicture}
