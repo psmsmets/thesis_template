@@ -41,3 +41,34 @@ Core LaTeX file the includes all chapters. Each chapter has its own folder named
 ## Propositions (propositions.tex)
 
 The layout of the doctoral thesis (thesis.sty) is used for the propositions. An example is given in both English and Dutch, with a reference to a specific chapter of the doctoral thesis.
+
+
+## LaTex and TexLive
+
+For MacTex users, don't install the full package but download the smaller [BasicTeX]: https://tug.org/mactex/morepackages.html
+
+Once TexLive is installed you can add all missing packages using the TexLive Manager `tlmg`.
+
+### Install LaTeX packages using tlmg
+
+Set default ctan repository location.
+```
+sudo tlmgr option location http://mirror.ctan.org/systems/texlive/tlnet
+```
+
+Install latexmk (essential for sublime users).
+```
+sudo tlmgr install latexmk
+```
+
+### Install all missing packages automatically
+
+Install on the fly package installation tool.
+```
+sudo tlmgr install texliveonfly
+```
+
+Run once texliveonfly to install all missing packages.
+```
+sudo texliveonfly thesis.tex
+```
