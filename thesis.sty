@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % LaTeX2e style file for Ph.D. Thesis
 %
-% Usage: 
+% Useage: 
 %	\usepackage[screen]{thesis}
 %
 % Shortcuts:
@@ -9,7 +9,7 @@
 %	screen			enables options	 : booklet
 %	print			enable options	 : booklet scaled, cmyk, bindingoffset
 %
-% All options
+% All optios
 %	booklet			papersize 17x24cm
 %	bookletscaled		papersize 17x24cm on a regular a4paper with crop marks
 %	bindingoffset		set 6.5mm binding offset
@@ -98,6 +98,9 @@
 % colorbox with rounded edges
 \usepackage[framemethod=tikz]{mdframed}
 
+\usepackage[latin1]{inputenc} 
+\usepackage[hidelinks]{hyperref}
+
 % Fonts
 \ifthesis@newfonts
 	\usepackage{lmodern}
@@ -106,7 +109,6 @@
 	\usepackage[vvarbb,cmbraces]{newtxmath} % [garamondx,cmbraces]
 	\usepackage[scaled=1.1]{CormorantGaramond} % [light,scaled=1.1] ?
 \else
-%	\usepackage{inputenc} % original Läslo 
 	\usepackage{lmodern}
 	\usepackage[T1]{fontenc} % computer modern
 \fi
