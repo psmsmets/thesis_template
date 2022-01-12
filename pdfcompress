@@ -1,0 +1,57 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+  then
+    echo "usage : pdfcompress example.pdf [opt]"
+    echo "   output file will be example__[opt].pdf"
+    echo "   compression settings : "
+    echo "        screen   = screen-view-only quality, 72 dpi images"
+    echo "        ebook    = low quality, 150 dpi images"
+    echo "        printer  = high quality, 300 dpi images"
+    echo "        prepress = high quality, color preserving, 300 dpi imgs"
+    echo "        default  = almost identical to /screen"
+    exit 1;
+fi
+
+if=$1
+opt=$2
+
+case $opt in
+printer|prepress)
+	dpi_I=300
+	dpi_M=450
+	;;
+ebook)
+	dpi_I=150
+	dpi_M=200
+	;;
+screen|*)
+	dpi_I=72
+	dpi_M=100
+	opt='screen'
+	;;
+esac
+
+len=${#if}
+of="${if:0:$len-4}__${opt}.pdf"
+
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/${opt} -dNOPAUSE \
+	-dQUIET -dBATCH -sOutputFile=$of $if
+
+#gs -sDEVICE=pdfwrite -dQUIET -dBATCH -dNOPAUSE \
+#   -dCompatibilityLevel=1.4 \
+#   -dDownsampleColorImages=true \
+#   -dDownsampleGrayImages=true \
+#   -dDownsampleMonoImages=true \
+#   -dColorImageDownsampleThreshold=1 \
+#   -dGrayImageDownsampleThreshold=1 \
+#   -dMonoImageDownsampleThreshold=1 \
+#   -dColorImageDownsampleType=/Bicubic \
+#   -dGrayImageDownsampleType=/Bicubic \
+#   -dMonoImageDownsampleType=/Bicubic \
+#   -dColorImageResolution=$dpi_I \
+#   -dGrayImageResolution=$dpi_I \
+#   -dMonoImageResolution=$dpi_M \
+#   -sOutputFile=$of $if
+
+exit 0;
