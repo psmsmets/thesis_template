@@ -49,7 +49,12 @@ For MacTex users, don't install the full package but download the smaller [Basic
 
 Once TexLive is installed you can add all missing packages using the TexLive Manager `tlmg`.
 
-### Install LaTeX packages using tlmg
+### Install LaTeX packages using tlmgr
+
+Update tlmgr
+```
+sudo tlmgr update --self
+```
 
 Set default ctan repository location.
 ```
