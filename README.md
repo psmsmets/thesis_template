@@ -47,7 +47,7 @@ The layout of the doctoral thesis (thesis.sty) is used for the propositions. An 
 
 For MacTex users, don't install the full package but download the smaller [BasicTeX]: https://tug.org/mactex/morepackages.html
 
-Once TexLive is installed you can add all missing packages using the TexLive Manager `tlmg`.
+Once TexLive is installed you can add all missing packages using the TexLive Manager `tlmgr`.
 
 ### Install LaTeX packages using tlmgr
 
